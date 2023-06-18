@@ -13,6 +13,7 @@
         <module>hire-pojo</module>
         <module>hire-api</module>
         <module>hire-user</module>
+        <module>hire-company</module>
     </modules>
 
     <properties>
