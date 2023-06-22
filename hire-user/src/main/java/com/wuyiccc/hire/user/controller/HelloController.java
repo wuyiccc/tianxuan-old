@@ -1,10 +1,14 @@
 package com.wuyiccc.hire.user.controller;
 
-import com.wuyiccc.hire.common.pojo.Stu;
+import com.wuyiccc.hire.common.CommonResult;
+import com.wuyiccc.hire.pojo.Stu;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author wuyiccc
@@ -16,11 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     @GetMapping("/hello")
-    public Object hello() {
+    public CommonResult<Stu> hello() {
 
         Stu stu = new Stu(1, "zhangsan", 29);
 
         log.debug(stu.toString());
-        return stu;
+        return CommonResult.ok(stu);
     }
 }

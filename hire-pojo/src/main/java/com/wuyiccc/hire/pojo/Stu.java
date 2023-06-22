@@ -1,4 +1,4 @@
-package com.wuyiccc.hire.common.pojo;
+package com.wuyiccc.hire.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
