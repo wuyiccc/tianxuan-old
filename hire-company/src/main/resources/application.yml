@@ -3,4 +3,11 @@ server:
   tomcat:
     uri-encoding: UTF-8
     max-swallow-size: -1
+spring:
+  profiles:
+    active: dev
 
+# 配置日志级别
+logging:
+  level:
+    root: debug

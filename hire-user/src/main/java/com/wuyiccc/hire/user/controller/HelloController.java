@@ -1,5 +1,7 @@
 package com.wuyiccc.hire.user.controller;
 
+import com.wuyiccc.hire.common.pojo.Stu;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,11 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/hello")
+@Slf4j
 public class HelloController {
 
     @GetMapping("/hello")
     public Object hello() {
 
-        return "hello userservice";
+        Stu stu = new Stu(1, "zhangsan", 29);
+
+        log.debug(stu.toString());
+        return stu;
     }
 }

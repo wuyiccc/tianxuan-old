@@ -1,6 +1,13 @@
 server:
-  port: 7001
   tomcat:
     uri-encoding: UTF-8
     max-swallow-size: -1
+  port: 7001
+spring:
+  profiles:
+    active: prod
 
+# 配置日志级别
+logging:
+  level:
+    root: debug
