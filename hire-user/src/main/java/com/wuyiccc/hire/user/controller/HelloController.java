@@ -19,7 +19,7 @@ public class HelloController {
     @GetMapping("/hello")
     public CommonResult<Stu> hello() {
 
-        Stu stu = new Stu(1, "zhangsan", 29);
+        Stu stu = new Stu("10001", "zhangsan", 29);
 
         log.debug(stu.toString());
         return CommonResult.ok(stu);

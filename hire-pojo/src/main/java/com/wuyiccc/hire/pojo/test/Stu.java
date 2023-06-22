@@ -15,7 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Stu {
 
-    private Integer id;
+    private String id;
 
     private String name;
 
