@@ -14,3 +14,9 @@ logging:
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
+  global-config:
+    db-config:
+      # 雪花算法id
+      id-type: assign_id
+    # 去掉mybatis-plus banner图片
+    banner: false

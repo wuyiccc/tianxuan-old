@@ -23,11 +23,11 @@ public class StuController {
     @GetMapping("/stu")
     public CommonResult<String> stu() {
         Stu stu = new Stu();
-        stu.setId("10001");
+//        stu.setId("10001");
         stu.setName("wuyiccc");
         stu.setAge(25);
 
-        stuService.save(stu);
+        stuService.saveStu(stu);
         return CommonResult.ok("创建成功");
     }
 }
