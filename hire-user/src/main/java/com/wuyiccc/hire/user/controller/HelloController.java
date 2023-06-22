@@ -1,14 +1,11 @@
 package com.wuyiccc.hire.user.controller;
 
 import com.wuyiccc.hire.common.CommonResult;
-import com.wuyiccc.hire.pojo.Stu;
+import com.wuyiccc.hire.pojo.test.Stu;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author wuyiccc

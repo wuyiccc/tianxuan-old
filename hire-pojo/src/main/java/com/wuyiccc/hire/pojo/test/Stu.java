@@ -1,4 +1,4 @@
-package com.wuyiccc.hire.pojo;
+package com.wuyiccc.hire.pojo.test;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
