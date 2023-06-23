@@ -2,7 +2,8 @@ server:
   tomcat:
     uri-encoding: UTF-8
     max-swallow-size: -1
-  port: 7001
+  # 默认端口号设置为7001
+  port: ${port:7001}
 spring:
   profiles:
     active: dev
