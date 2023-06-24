@@ -5,15 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.wuyiccc</groupId>
-    <artifactId>hire</artifactId>
+    <artifactId>tianxuan</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>hire-common</module>
-        <module>hire-pojo</module>
-        <module>hire-api</module>
-        <module>hire-user</module>
-        <module>hire-company</module>
+        <module>tianxuan-common</module>
+        <module>tianxuan-pojo</module>
+        <module>tianxuan-api</module>
+        <module>tianxuan-user</module>
+        <module>tianxuan-company</module>
     </modules>
 
     <properties>

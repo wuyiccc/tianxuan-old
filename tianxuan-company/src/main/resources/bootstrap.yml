@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: tianxuan-company
+  cloud:
+    nacos:
+      config:
+        server-addr: ubuntu-physical
+        file-extension: yaml
+        namespace: tianxuan-dev
+#        group: dev
