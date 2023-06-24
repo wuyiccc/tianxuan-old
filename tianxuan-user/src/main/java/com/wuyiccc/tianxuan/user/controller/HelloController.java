@@ -1,8 +1,10 @@
 package com.wuyiccc.tianxuan.user.controller;
 
-import com.wuyiccc.tianxuan.common.CommonResult;
+import com.wuyiccc.tianxuan.common.result.CommonResult;
+import com.wuyiccc.tianxuan.common.util.SmsUtils;
 import com.wuyiccc.tianxuan.pojo.test.Stu;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ public class HelloController {
 
     @Value("${server.port}")
     private String port;
+
 
     @GetMapping("/hello")
     public CommonResult<Stu> hello() {

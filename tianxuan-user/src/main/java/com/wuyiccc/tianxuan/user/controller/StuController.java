@@ -1,6 +1,6 @@
 package com.wuyiccc.tianxuan.user.controller;
 
-import com.wuyiccc.tianxuan.common.CommonResult;
+import com.wuyiccc.tianxuan.common.result.CommonResult;
 import com.wuyiccc.tianxuan.pojo.test.Stu;
 import com.wuyiccc.tianxuan.user.service.StuService;
 import org.springframework.beans.factory.annotation.Autowired;

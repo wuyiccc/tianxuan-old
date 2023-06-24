@@ -1,4 +1,4 @@
-package com.wuyiccc.tianxuan.common;
+package com.wuyiccc.tianxuan.common.result;
 
 /**
  * @author wuyiccc
