@@ -1,7 +1,10 @@
 package com.wuyiccc.tianxuan.pojo;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
-import java.io.Serializable;
 
 /**
  * <p>
@@ -11,9 +14,11 @@ import java.io.Serializable;
  * @author wuyiccc
  * @since 2023-06-22
  */
-public class Article implements Serializable {
+@Data
+@NoArgsConstructor
+@ToString
+public class Article {
 
-    private static final long serialVersionUID = 1L;
 
     private String id;
 
@@ -61,109 +66,4 @@ public class Article implements Serializable {
 
     private LocalDateTime updateTime;
 
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getArticleCover() {
-        return articleCover;
-    }
-
-    public void setArticleCover(String articleCover) {
-        this.articleCover = articleCover;
-    }
-
-    public String getPublishAdminId() {
-        return publishAdminId;
-    }
-
-    public void setPublishAdminId(String publishAdminId) {
-        this.publishAdminId = publishAdminId;
-    }
-
-    public LocalDateTime getPublishTime() {
-        return publishTime;
-    }
-
-    public void setPublishTime(LocalDateTime publishTime) {
-        this.publishTime = publishTime;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    public String getPublisherFace() {
-        return publisherFace;
-    }
-
-    public void setPublisherFace(String publisherFace) {
-        this.publisherFace = publisherFace;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Article{" +
-        "id=" + id +
-        ", title=" + title +
-        ", content=" + content +
-        ", articleCover=" + articleCover +
-        ", publishAdminId=" + publishAdminId +
-        ", publishTime=" + publishTime +
-        ", publisher=" + publisher +
-        ", publisherFace=" + publisherFace +
-        ", status=" + status +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        "}";
-    }
 }

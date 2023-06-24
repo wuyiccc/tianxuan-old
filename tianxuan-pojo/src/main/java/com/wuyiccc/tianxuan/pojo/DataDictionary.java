@@ -1,5 +1,9 @@
 package com.wuyiccc.tianxuan.pojo;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.io.Serializable;
 
 /**
@@ -10,9 +14,11 @@ import java.io.Serializable;
  * @author wuyiccc
  * @since 2023-06-22
  */
-public class DataDictionary implements Serializable {
+@Data
+@NoArgsConstructor
+@ToString
+public class DataDictionary {
 
-    private static final long serialVersionUID = 1L;
 
     private String id;
 
@@ -51,82 +57,4 @@ public class DataDictionary implements Serializable {
      */
     private Boolean enable;
 
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTypeCode() {
-        return typeCode;
-    }
-
-    public void setTypeCode(String typeCode) {
-        this.typeCode = typeCode;
-    }
-
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
-
-    public String getItemKey() {
-        return itemKey;
-    }
-
-    public void setItemKey(String itemKey) {
-        this.itemKey = itemKey;
-    }
-
-    public String getItemValue() {
-        return itemValue;
-    }
-
-    public void setItemValue(String itemValue) {
-        this.itemValue = itemValue;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public Boolean getEnable() {
-        return enable;
-    }
-
-    public void setEnable(Boolean enable) {
-        this.enable = enable;
-    }
-
-    @Override
-    public String toString() {
-        return "DataDictionary{" +
-        "id=" + id +
-        ", typeCode=" + typeCode +
-        ", typeName=" + typeName +
-        ", itemKey=" + itemKey +
-        ", itemValue=" + itemValue +
-        ", sort=" + sort +
-        ", icon=" + icon +
-        ", enable=" + enable +
-        "}";
-    }
 }

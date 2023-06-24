@@ -1,5 +1,9 @@
 package com.wuyiccc.tianxuan.pojo;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -11,9 +15,11 @@ import java.io.Serializable;
  * @author wuyiccc
  * @since 2023-06-22
  */
-public class ResumeExpect implements Serializable {
+@Data
+@NoArgsConstructor
+@ToString
+public class ResumeExpect {
 
-    private static final long serialVersionUID = 1L;
 
     private String id;
 
@@ -56,100 +62,4 @@ public class ResumeExpect implements Serializable {
 
     private LocalDateTime updatedTime;
 
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getResumeId() {
-        return resumeId;
-    }
-
-    public void setResumeId(String resumeId) {
-        this.resumeId = resumeId;
-    }
-
-    public String getJobName() {
-        return jobName;
-    }
-
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getIndustry() {
-        return industry;
-    }
-
-    public void setIndustry(String industry) {
-        this.industry = industry;
-    }
-
-    public Integer getBeginSalary() {
-        return beginSalary;
-    }
-
-    public void setBeginSalary(Integer beginSalary) {
-        this.beginSalary = beginSalary;
-    }
-
-    public Integer getEndSalary() {
-        return endSalary;
-    }
-
-    public void setEndSalary(Integer endSalary) {
-        this.endSalary = endSalary;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(LocalDateTime updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-    @Override
-    public String toString() {
-        return "ResumeExpect{" +
-        "id=" + id +
-        ", userId=" + userId +
-        ", resumeId=" + resumeId +
-        ", jobName=" + jobName +
-        ", city=" + city +
-        ", industry=" + industry +
-        ", beginSalary=" + beginSalary +
-        ", endSalary=" + endSalary +
-        ", createTime=" + createTime +
-        ", updatedTime=" + updatedTime +
-        "}";
-    }
 }

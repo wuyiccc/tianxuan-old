@@ -1,5 +1,9 @@
 package com.wuyiccc.tianxuan.pojo;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -11,9 +15,11 @@ import java.io.Serializable;
  * @author wuyiccc
  * @since 2023-06-22
  */
-public class ResumeWorkExp implements Serializable {
+@Data
+@NoArgsConstructor
+@ToString
+public class ResumeWorkExp {
 
-    private static final long serialVersionUID = 1L;
 
     private String id;
 
@@ -71,127 +77,4 @@ public class ResumeWorkExp implements Serializable {
 
     private LocalDateTime updatedTime;
 
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getResumeId() {
-        return resumeId;
-    }
-
-    public void setResumeId(String resumeId) {
-        this.resumeId = resumeId;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getIndustry() {
-        return industry;
-    }
-
-    public void setIndustry(String industry) {
-        this.industry = industry;
-    }
-
-    public String getBeginDate() {
-        return beginDate;
-    }
-
-    public void setBeginDate(String beginDate) {
-        this.beginDate = beginDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getContentHtml() {
-        return contentHtml;
-    }
-
-    public void setContentHtml(String contentHtml) {
-        this.contentHtml = contentHtml;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(LocalDateTime updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-    @Override
-    public String toString() {
-        return "ResumeWorkExp{" +
-        "id=" + id +
-        ", userId=" + userId +
-        ", resumeId=" + resumeId +
-        ", companyName=" + companyName +
-        ", industry=" + industry +
-        ", beginDate=" + beginDate +
-        ", endDate=" + endDate +
-        ", position=" + position +
-        ", department=" + department +
-        ", content=" + content +
-        ", contentHtml=" + contentHtml +
-        ", createTime=" + createTime +
-        ", updatedTime=" + updatedTime +
-        "}";
-    }
 }

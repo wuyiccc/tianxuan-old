@@ -1,5 +1,9 @@
 package com.wuyiccc.tianxuan.pojo;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -12,9 +16,11 @@ import java.io.Serializable;
  * @author wuyiccc
  * @since 2023-06-22
  */
-public class Interview implements Serializable {
+@Data
+@NoArgsConstructor
+@ToString
+public class Interview {
 
-    private static final long serialVersionUID = 1L;
 
     private String id;
 
@@ -85,128 +91,4 @@ public class Interview implements Serializable {
 简历名称与职位使用字段冗余，目的相当于快照，只记录当时信息
      */
     private String candPosition;
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getHrUserId() {
-        return hrUserId;
-    }
-
-    public void setHrUserId(String hrUserId) {
-        this.hrUserId = hrUserId;
-    }
-
-    public String getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
-    }
-
-    public String getCandUserId() {
-        return candUserId;
-    }
-
-    public void setCandUserId(String candUserId) {
-        this.candUserId = candUserId;
-    }
-
-    public String getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
-    }
-
-    public String getJobName() {
-        return jobName;
-    }
-
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
-    }
-
-    public LocalDateTime getInterviewTime() {
-        return interviewTime;
-    }
-
-    public void setInterviewTime(LocalDateTime interviewTime) {
-        this.interviewTime = interviewTime;
-    }
-
-    public String getInterviewAddress() {
-        return interviewAddress;
-    }
-
-    public void setInterviewAddress(String interviewAddress) {
-        this.interviewAddress = interviewAddress;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getCandName() {
-        return candName;
-    }
-
-    public void setCandName(String candName) {
-        this.candName = candName;
-    }
-
-    public String getCandFace() {
-        return candFace;
-    }
-
-    public void setCandFace(String candFace) {
-        this.candFace = candFace;
-    }
-
-    public String getCandPosition() {
-        return candPosition;
-    }
-
-    public void setCandPosition(String candPosition) {
-        this.candPosition = candPosition;
-    }
-
-    @Override
-    public String toString() {
-        return "Interview{" +
-        "id=" + id +
-        ", hrUserId=" + hrUserId +
-        ", companyId=" + companyId +
-        ", candUserId=" + candUserId +
-        ", jobId=" + jobId +
-        ", jobName=" + jobName +
-        ", interviewTime=" + interviewTime +
-        ", interviewAddress=" + interviewAddress +
-        ", remark=" + remark +
-        ", status=" + status +
-        ", candName=" + candName +
-        ", candFace=" + candFace +
-        ", candPosition=" + candPosition +
-        "}";
-    }
 }

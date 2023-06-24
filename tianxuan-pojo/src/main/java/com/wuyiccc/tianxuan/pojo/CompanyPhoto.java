@@ -10,9 +10,7 @@ import java.io.Serializable;
  * @author wuyiccc
  * @since 2023-06-22
  */
-public class CompanyPhoto implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class CompanyPhoto {
 
     /**
      * 企业id
@@ -21,28 +19,4 @@ public class CompanyPhoto implements Serializable {
 
     private String photos;
 
-
-    public String getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
-    }
-
-    public String getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(String photos) {
-        this.photos = photos;
-    }
-
-    @Override
-    public String toString() {
-        return "CompanyPhoto{" +
-        "companyId=" + companyId +
-        ", photos=" + photos +
-        "}";
-    }
 }

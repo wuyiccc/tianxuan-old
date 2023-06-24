@@ -1,5 +1,9 @@
 package com.wuyiccc.tianxuan.pojo;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -11,9 +15,11 @@ import java.io.Serializable;
  * @author wuyiccc
  * @since 2023-06-22
  */
-public class ResumeEducation implements Serializable {
+@Data
+@NoArgsConstructor
+@ToString
+public class ResumeEducation {
 
-    private static final long serialVersionUID = 1L;
 
     private String id;
 
@@ -57,99 +63,4 @@ public class ResumeEducation implements Serializable {
     private LocalDateTime updatedTime;
 
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getResumeId() {
-        return resumeId;
-    }
-
-    public void setResumeId(String resumeId) {
-        this.resumeId = resumeId;
-    }
-
-    public String getSchool() {
-        return school;
-    }
-
-    public void setSchool(String school) {
-        this.school = school;
-    }
-
-    public String getEducation() {
-        return education;
-    }
-
-    public void setEducation(String education) {
-        this.education = education;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
-    public String getBeginDate() {
-        return beginDate;
-    }
-
-    public void setBeginDate(String beginDate) {
-        this.beginDate = beginDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(LocalDateTime updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-    @Override
-    public String toString() {
-        return "ResumeEducation{" +
-        "id=" + id +
-        ", userId=" + userId +
-        ", resumeId=" + resumeId +
-        ", school=" + school +
-        ", education=" + education +
-        ", major=" + major +
-        ", beginDate=" + beginDate +
-        ", endDate=" + endDate +
-        ", createTime=" + createTime +
-        ", updatedTime=" + updatedTime +
-        "}";
-    }
 }

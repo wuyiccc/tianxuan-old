@@ -1,5 +1,9 @@
 package com.wuyiccc.tianxuan.pojo;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -11,9 +15,11 @@ import java.io.Serializable;
  * @author wuyiccc
  * @since 2023-06-22
  */
-public class Resume implements Serializable {
+@Data
+@NoArgsConstructor
+@ToString
+public class Resume {
 
-    private static final long serialVersionUID = 1L;
 
     private String id;
 
@@ -56,100 +62,4 @@ public class Resume implements Serializable {
 
     private LocalDateTime updatedTime;
 
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getAdvantage() {
-        return advantage;
-    }
-
-    public void setAdvantage(String advantage) {
-        this.advantage = advantage;
-    }
-
-    public String getAdvantageHtml() {
-        return advantageHtml;
-    }
-
-    public void setAdvantageHtml(String advantageHtml) {
-        this.advantageHtml = advantageHtml;
-    }
-
-    public String getCredentials() {
-        return credentials;
-    }
-
-    public void setCredentials(String credentials) {
-        this.credentials = credentials;
-    }
-
-    public String getSkills() {
-        return skills;
-    }
-
-    public void setSkills(String skills) {
-        this.skills = skills;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getRefreshTime() {
-        return refreshTime;
-    }
-
-    public void setRefreshTime(LocalDateTime refreshTime) {
-        this.refreshTime = refreshTime;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(LocalDateTime updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Resume{" +
-        "id=" + id +
-        ", userId=" + userId +
-        ", advantage=" + advantage +
-        ", advantageHtml=" + advantageHtml +
-        ", credentials=" + credentials +
-        ", skills=" + skills +
-        ", status=" + status +
-        ", refreshTime=" + refreshTime +
-        ", createTime=" + createTime +
-        ", updatedTime=" + updatedTime +
-        "}";
-    }
 }

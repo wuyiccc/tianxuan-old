@@ -1,5 +1,9 @@
 package com.wuyiccc.tianxuan.pojo;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.io.Serializable;
 
 /**
@@ -10,9 +14,11 @@ import java.io.Serializable;
  * @author wuyiccc
  * @since 2023-06-22
  */
-public class JobType implements Serializable {
+@Data
+@NoArgsConstructor
+@ToString
+public class JobType {
 
-    private static final long serialVersionUID = 1L;
 
     private String id;
 
@@ -40,65 +46,4 @@ public class JobType implements Serializable {
      * 分类层级，用于标记
      */
     private Integer level;
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public String getFatherId() {
-        return fatherId;
-    }
-
-    public void setFatherId(String fatherId) {
-        this.fatherId = fatherId;
-    }
-
-    public Boolean getIsLeaf() {
-        return isLeaf;
-    }
-
-    public void setIsLeaf(Boolean isLeaf) {
-        this.isLeaf = isLeaf;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    @Override
-    public String toString() {
-        return "JobType{" +
-        "id=" + id +
-        ", name=" + name +
-        ", sort=" + sort +
-        ", fatherId=" + fatherId +
-        ", isLeaf=" + isLeaf +
-        ", level=" + level +
-        "}";
-    }
 }

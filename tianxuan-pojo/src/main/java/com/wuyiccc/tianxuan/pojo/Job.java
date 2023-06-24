@@ -1,5 +1,9 @@
 package com.wuyiccc.tianxuan.pojo;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -11,9 +15,11 @@ import java.io.Serializable;
  * @author wuyiccc
  * @since 2023-06-22
  */
-public class Job implements Serializable {
+@Data
+@NoArgsConstructor
+@ToString
+public class Job {
 
-    private static final long serialVersionUID = 1L;
 
     private String id;
 
@@ -97,173 +103,4 @@ public class Job implements Serializable {
     private LocalDateTime createTime;
 
     private LocalDateTime updatedTime;
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getHrId() {
-        return hrId;
-    }
-
-    public void setHrId(String hrId) {
-        this.hrId = hrId;
-    }
-
-    public String getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
-    }
-
-    public String getJobName() {
-        return jobName;
-    }
-
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
-    }
-
-    public String getJobType() {
-        return jobType;
-    }
-
-    public void setJobType(String jobType) {
-        this.jobType = jobType;
-    }
-
-    public String getExpYears() {
-        return expYears;
-    }
-
-    public void setExpYears(String expYears) {
-        this.expYears = expYears;
-    }
-
-    public String getEdu() {
-        return edu;
-    }
-
-    public void setEdu(String edu) {
-        this.edu = edu;
-    }
-
-    public Integer getBeginSalary() {
-        return beginSalary;
-    }
-
-    public void setBeginSalary(Integer beginSalary) {
-        this.beginSalary = beginSalary;
-    }
-
-    public Integer getEndSalary() {
-        return endSalary;
-    }
-
-    public void setEndSalary(Integer endSalary) {
-        this.endSalary = endSalary;
-    }
-
-    public Integer getMonthlySalary() {
-        return monthlySalary;
-    }
-
-    public void setMonthlySalary(Integer monthlySalary) {
-        this.monthlySalary = monthlySalary;
-    }
-
-    public String getJobDesc() {
-        return jobDesc;
-    }
-
-    public void setJobDesc(String jobDesc) {
-        this.jobDesc = jobDesc;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getViolateReason() {
-        return violateReason;
-    }
-
-    public void setViolateReason(String violateReason) {
-        this.violateReason = violateReason;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(LocalDateTime updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Job{" +
-        "id=" + id +
-        ", hrId=" + hrId +
-        ", companyId=" + companyId +
-        ", jobName=" + jobName +
-        ", jobType=" + jobType +
-        ", expYears=" + expYears +
-        ", edu=" + edu +
-        ", beginSalary=" + beginSalary +
-        ", endSalary=" + endSalary +
-        ", monthlySalary=" + monthlySalary +
-        ", jobDesc=" + jobDesc +
-        ", tags=" + tags +
-        ", city=" + city +
-        ", address=" + address +
-        ", status=" + status +
-        ", violateReason=" + violateReason +
-        ", createTime=" + createTime +
-        ", updatedTime=" + updatedTime +
-        "}";
-    }
 }
