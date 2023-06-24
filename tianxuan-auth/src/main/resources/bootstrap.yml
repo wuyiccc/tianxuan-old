@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: tianxuan-user
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_HOST:ubuntu-physical}:${NACOS_PORT:8848}
+        namespace: ${NACOS_NAMESPACE:tianxuan-dev}
+        file-extension: yml
+        shared-configs:
+          - data-id: tianxuan-auth.yml
+            refresh: true

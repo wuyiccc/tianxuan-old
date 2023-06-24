@@ -16,4 +16,5 @@ tianxuan-common -> tianxuan-pojo -> tianxuan-api -> tianxuan-gateway
 11011: tianxuan-company
 11021: tianxuan-user
 11031: tianxuan-gateway
+11041: tianxuan-auth
 ```
