@@ -3,10 +3,8 @@ server:
     uri-encoding: UTF-8
     max-swallow-size: -1
   # 默认端口号设置为7001
-  port: ${port:7001}
+  port: ${PORT:7001}
 spring:
-  profiles:
-    active: dev
   application:
     name: tianxuan-user
 
