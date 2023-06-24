@@ -2,8 +2,8 @@ server:
   tomcat:
     uri-encoding: UTF-8
     max-swallow-size: -1
-  # 默认端口号设置为7001
-  port: ${PORT:7001}
+  # 默认端口号设置为11000
+  port: ${PORT:11000}
 spring:
   application:
     name: tianxuan-user

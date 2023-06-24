@@ -1,5 +1,5 @@
 server:
-  port: ${PORT:6001}
+  port: ${PORT:11010}
   tomcat:
     uri-encoding: UTF-8
     max-swallow-size: -1
