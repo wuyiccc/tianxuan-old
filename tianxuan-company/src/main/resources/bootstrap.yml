@@ -5,7 +5,7 @@ spring:
     nacos:
       config:
         server-addr: ${NACOS_HOST:ubuntu-physical}:${NACOS_PORT:8848}
-        namespace: ${NACOS_NAMESPACE:c7f61376-c76d-47f7-bf6d-d2431b7949b2}
+        namespace: ${NACOS_NAMESPACE:tianxuan-dev}
         file-extension: yml
         shared-configs:
           - data-id: tianxuan-company.yml
