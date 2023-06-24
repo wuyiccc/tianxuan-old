@@ -3,6 +3,7 @@ package com.wuyiccc.tianxuan.user.controller;
 import com.wuyiccc.tianxuan.common.CommonResult;
 import com.wuyiccc.tianxuan.pojo.test.Stu;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,11 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class HelloController {
 
+
+
+    @Value("${server.port}")
+    private String port;
+
     @GetMapping("/hello")
     public CommonResult<Stu> hello() {
 
         Stu stu = new Stu("10001", "zhangsan", 29);
 
+        log.info("lb测试, 当前端口号为: " + port);
         log.debug(stu.toString());
         return CommonResult.ok(stu);
     }

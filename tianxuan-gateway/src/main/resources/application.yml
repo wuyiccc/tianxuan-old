@@ -3,10 +3,10 @@ server:
     uri-encoding: UTF-8
     max-swallow-size: -1
   # 默认端口号设置
-  port: ${PORT:11011}
+  port: ${PORT:11031}
 spring:
   application:
-    name: tianxuan-user
+    name: tianxuan-gateway
 
 # 配置日志级别
 logging:

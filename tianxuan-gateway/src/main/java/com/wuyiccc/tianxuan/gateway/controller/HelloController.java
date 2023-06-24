@@ -1,4 +1,4 @@
-package com.wuyiccc.tianxuan.company.controller;
+package com.wuyiccc.tianxuan.gateway.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +15,6 @@ public class HelloController {
     @GetMapping("/hello")
     public Object hello() {
 
-        return "hello tianxuan-company";
+        return "hello gateway";
     }
 }
