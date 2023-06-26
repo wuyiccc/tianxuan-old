@@ -2,7 +2,7 @@ package com.wuyiccc.tianxuan.auth.controller;
 
 import com.wuyiccc.tianxuan.common.base.BaseInfoProperties;
 import com.wuyiccc.tianxuan.common.result.CommonResult;
-import com.wuyiccc.tianxuan.common.util.RedisUtils;
+import com.wuyiccc.tianxuan.common.util.IPUtil;
 import com.wuyiccc.tianxuan.common.util.SmsUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author wuyiccc
@@ -34,8 +32,13 @@ public class PassportController extends BaseInfoProperties {
             return CommonResult.errorMsg("手机号不可为空");
         }
 
+        // 限制用户只能在60s以内获得一次验证码
+        String requestIp = IPUtil.getRequestIp(request);
+        redisUtils.setnx60s(MOBILE_SMSCODE + ":" + requestIp, mobile);
+
         String code = (int) ((Math.random() * 9 + 1) * 100000) + "";
         log.info("当前验证码为: {}", code);
+        // TODO(wuyiccc): 发送短信验证码
 //            smsUtils.sendSMS(mobile, code);
         // 设置验证码过期时间为30min
         redisUtils.set(MOBILE_SMSCODE + ":" + mobile, code, 30 * 60);
