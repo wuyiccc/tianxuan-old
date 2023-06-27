@@ -1,9 +1,12 @@
 package com.wuyiccc.tianxuan.auth.controller;
 
+import com.wuyiccc.tianxuan.auth.service.UserService;
 import com.wuyiccc.tianxuan.common.base.BaseInfoProperties;
 import com.wuyiccc.tianxuan.common.result.CommonResult;
+import com.wuyiccc.tianxuan.common.result.ResponseStatusEnum;
 import com.wuyiccc.tianxuan.common.util.IPUtil;
 import com.wuyiccc.tianxuan.common.util.SmsUtils;
+import com.wuyiccc.tianxuan.pojo.User;
 import com.wuyiccc.tianxuan.pojo.bo.RegisterLoginBO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * @author wuyiccc
@@ -24,6 +28,10 @@ public class PassportController extends BaseInfoProperties {
 
     @Autowired
     private SmsUtils smsUtils;
+
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/getSMSCode")
     public CommonResult<String> getSMSCode(String mobile, HttpServletRequest request) {
@@ -50,6 +58,18 @@ public class PassportController extends BaseInfoProperties {
     , HttpServletRequest request) {
         String mobile = registerLoginBO.getMobile();
         String smsCode = registerLoginBO.getSmsCode();
+
+        String sendSmsCode = redisUtils.get(MOBILE_SMSCODE + ":" + mobile);
+
+        if (!smsCode.equalsIgnoreCase(sendSmsCode)) {
+            return CommonResult.errorCustom(ResponseStatusEnum.SMS_CODE_ERROR);
+        }
+        redisUtils.del(MOBILE_SMSCODE + ":" + mobile);
+
+        User user = userService.queryUserByMobile(mobile);
+        if (Objects.isNull(user)) {
+            userService.createUser(mobile);
+        }
         return CommonResult.ok();
     }
 }
