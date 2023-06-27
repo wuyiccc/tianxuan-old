@@ -8,14 +8,17 @@ import com.wuyiccc.tianxuan.common.util.IPUtil;
 import com.wuyiccc.tianxuan.common.util.SmsUtils;
 import com.wuyiccc.tianxuan.pojo.User;
 import com.wuyiccc.tianxuan.pojo.bo.RegisterLoginBO;
+import com.wuyiccc.tianxuan.pojo.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * @author wuyiccc
@@ -54,7 +57,7 @@ public class PassportController extends BaseInfoProperties {
     }
 
     @PostMapping("/login")
-    public CommonResult<String> login(@Valid @RequestBody RegisterLoginBO registerLoginBO
+    public CommonResult<UserVO> login(@Valid @RequestBody RegisterLoginBO registerLoginBO
     , HttpServletRequest request) {
         String mobile = registerLoginBO.getMobile();
         String smsCode = registerLoginBO.getSmsCode();
@@ -68,8 +71,22 @@ public class PassportController extends BaseInfoProperties {
 
         User user = userService.queryUserByMobile(mobile);
         if (Objects.isNull(user)) {
-            userService.createUser(mobile);
+            user = userService.createUser(mobile);
         }
+
+        String uToken = TOKEN_USER_PREFIX + SYMBOL_DOT + UUID.randomUUID().toString();
+        redisUtils.set(REDIS_USER_TOKEN + ":" + user.getId(), uToken);
+
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(user, userVO);
+        userVO.setUserToken(uToken);
+
+        return CommonResult.ok(userVO);
+    }
+
+    @PostMapping("/logout")
+    public CommonResult<String> logout(@RequestParam String userId) {
+        redisUtils.del(REDIS_USER_TOKEN + ":" + userId);
         return CommonResult.ok();
     }
 }
