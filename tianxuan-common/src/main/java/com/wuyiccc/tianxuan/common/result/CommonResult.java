@@ -53,6 +53,10 @@ public class CommonResult<T> {
         return new CommonResult<>(ResponseStatusEnum.FAILED, msg);
     }
 
+    public static <T> CommonResult<T> errorData(T errorData) {
+        return new CommonResult<>(ResponseStatusEnum.FAILED, errorData);
+    }
+
     /**
      * 错误返回，token异常，一些通用的可以在这里统一定义
      * @return

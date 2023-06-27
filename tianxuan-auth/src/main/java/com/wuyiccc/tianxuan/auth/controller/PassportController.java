@@ -4,14 +4,14 @@ import com.wuyiccc.tianxuan.common.base.BaseInfoProperties;
 import com.wuyiccc.tianxuan.common.result.CommonResult;
 import com.wuyiccc.tianxuan.common.util.IPUtil;
 import com.wuyiccc.tianxuan.common.util.SmsUtils;
+import com.wuyiccc.tianxuan.pojo.bo.RegisterLoginBO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /**
  * @author wuyiccc
@@ -43,5 +43,13 @@ public class PassportController extends BaseInfoProperties {
         // 设置验证码过期时间为30min
         redisUtils.set(MOBILE_SMSCODE + ":" + mobile, code, 30 * 60);
         return CommonResult.ok("发送短信成功");
+    }
+
+    @PostMapping("/login")
+    public CommonResult<String> login(@Valid @RequestBody RegisterLoginBO registerLoginBO
+    , HttpServletRequest request) {
+        String mobile = registerLoginBO.getMobile();
+        String smsCode = registerLoginBO.getSmsCode();
+        return CommonResult.ok();
     }
 }
