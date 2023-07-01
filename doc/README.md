@@ -4,9 +4,10 @@
 
 ## 1. 项目结构
 ```
-tianxuan-common -> tianxuan-pojo -> tianxuan-api -> tianxuan-gateway
+tianxuan-common -> tianxuan-pojo -> tianxuan-api 
                                                  -> tianxuan-user
                                                  -> tianxuan-company       
+                                 -> tianxuan-gateway                
 ```
 
 ## 2. 天璇开发平台端口规范

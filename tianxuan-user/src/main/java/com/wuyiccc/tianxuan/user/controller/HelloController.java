@@ -1,6 +1,8 @@
 package com.wuyiccc.tianxuan.user.controller;
 
+import com.wuyiccc.tianxuan.api.interceptor.JWTCurrentUserInterceptor;
 import com.wuyiccc.tianxuan.common.result.CommonResult;
+import com.wuyiccc.tianxuan.pojo.User;
 import com.wuyiccc.tianxuan.pojo.test.Stu;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +27,9 @@ public class HelloController {
 
     @GetMapping("/hello")
     public CommonResult<Stu> hello() {
+
+        User user = JWTCurrentUserInterceptor.currentUser.get();
+        log.info("user: {}", user);
 
         Stu stu = new Stu("10001", "zhangsan", 29);
 

@@ -154,6 +154,15 @@
             <!-- 请到https://search.maven.org/search?q=tencentcloud-sdk-java查询所有版本，最新版本如下 -->
             <version>3.1.598</version>
         </dependency>
+
+        <!--macos m1/m2 netty适配-->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <scope>runtime</scope>
+            <classifier>osx-aarch_64</classifier>
+            <version>4.1.79.Final</version>
+        </dependency>
     </dependencies>
 
 </project>

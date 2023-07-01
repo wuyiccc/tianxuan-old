@@ -90,7 +90,7 @@ public class PassportController extends BaseInfoProperties {
 
     @PostMapping("/logout")
     public CommonResult<String> logout(@RequestParam String userId) {
-        redisUtils.del(REDIS_USER_TOKEN + ":" + userId);
+//        redisUtils.del(REDIS_USER_TOKEN + ":" + userId);
         return CommonResult.ok();
     }
 }
