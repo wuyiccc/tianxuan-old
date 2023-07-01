@@ -10,5 +10,3 @@ spring:
         shared-configs:
           - data-id: tianxuan-gateway.yml
             refresh: true
-          - data-id: tencent-cloud.yml
-            refresh: true

@@ -1,10 +1,12 @@
 package com.wuyiccc.tianxuan.auth.controller;
 
+import com.google.gson.Gson;
 import com.wuyiccc.tianxuan.auth.service.UserService;
 import com.wuyiccc.tianxuan.common.base.BaseInfoProperties;
 import com.wuyiccc.tianxuan.common.result.CommonResult;
 import com.wuyiccc.tianxuan.common.result.ResponseStatusEnum;
-import com.wuyiccc.tianxuan.common.util.IPUtil;
+import com.wuyiccc.tianxuan.common.util.IPUtils;
+import com.wuyiccc.tianxuan.common.util.JWTUtils;
 import com.wuyiccc.tianxuan.common.util.SmsUtils;
 import com.wuyiccc.tianxuan.pojo.User;
 import com.wuyiccc.tianxuan.pojo.bo.RegisterLoginBO;
@@ -36,6 +38,9 @@ public class PassportController extends BaseInfoProperties {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private JWTUtils jwtUtils;
+
     @GetMapping("/getSMSCode")
     public CommonResult<String> getSMSCode(String mobile, HttpServletRequest request) {
 
@@ -44,7 +49,7 @@ public class PassportController extends BaseInfoProperties {
         }
 
         // 限制用户只能在60s以内获得一次验证码
-        String requestIp = IPUtil.getRequestIp(request);
+        String requestIp = IPUtils.getRequestIp(request);
         redisUtils.setnx60s(MOBILE_SMSCODE + ":" + requestIp, mobile);
 
         String code = (int) ((Math.random() * 9 + 1) * 100000) + "";
@@ -74,8 +79,7 @@ public class PassportController extends BaseInfoProperties {
             user = userService.createUser(mobile);
         }
 
-        String uToken = TOKEN_USER_PREFIX + SYMBOL_DOT + UUID.randomUUID().toString();
-        redisUtils.set(REDIS_USER_TOKEN + ":" + user.getId(), uToken);
+        String uToken = jwtUtils.createJWTWithPrefix(new Gson().toJson(user), TOKEN_USER_PREFIX);
 
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user, userVO);

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 @ConfigurationProperties(prefix = "tencent.cloud")
-public class TencentCloudProperties {
+public class TencentCloudConfig {
 
     private String secretId;
     private String secretKey;

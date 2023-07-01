@@ -3,10 +3,9 @@ package com.wuyiccc.tianxuan.api.interceptor;
 import com.wuyiccc.tianxuan.common.base.BaseInfoProperties;
 import com.wuyiccc.tianxuan.common.exception.MyCustomException;
 import com.wuyiccc.tianxuan.common.result.ResponseStatusEnum;
-import com.wuyiccc.tianxuan.common.util.IPUtil;
+import com.wuyiccc.tianxuan.common.util.IPUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +20,7 @@ public class SMSInterceptor extends BaseInfoProperties implements HandlerInterce
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        String requestIp = IPUtil.getRequestIp(request);
+        String requestIp = IPUtils.getRequestIp(request);
 
         boolean ipExist = redisUtils.keyIsExist(MOBILE_SMSCODE + ":" + requestIp);
         if (ipExist) {

@@ -6,12 +6,10 @@ import com.tencentcloudapi.common.profile.HttpProfile;
 import com.tencentcloudapi.sms.v20210111.SmsClient;
 import com.tencentcloudapi.sms.v20210111.models.SendSmsRequest;
 import com.tencentcloudapi.sms.v20210111.models.SendSmsResponse;
-import com.wuyiccc.tianxuan.common.config.TencentCloudProperties;
+import com.wuyiccc.tianxuan.common.config.TencentCloudConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * @author wuyiccc
@@ -23,7 +21,7 @@ public class SmsUtils {
 
 
     @Autowired
-    private TencentCloudProperties tencentCloudProperties;
+    private TencentCloudConfig tencentCloudConfig;
 
     public void sendSMS(String phone, String code) throws Exception {
         /* 必要步骤：
@@ -32,8 +30,8 @@ public class SmsUtils {
          * 你也可以直接在代码中写死密钥对，但是小心不要将代码复制、上传或者分享给他人，
          * 以免泄露密钥对危及你的财产安全。
          * CAM密匙查询获取: https://console.cloud.tencent.com/cam/capi*/
-        Credential cred = new Credential(tencentCloudProperties.getSecretId(),
-                tencentCloudProperties.getSecretKey());
+        Credential cred = new Credential(tencentCloudConfig.getSecretId(),
+                tencentCloudConfig.getSecretKey());
 
         // 实例化一个http选项，可选的，没有特殊需求可以跳过
         HttpProfile httpProfile = new HttpProfile();

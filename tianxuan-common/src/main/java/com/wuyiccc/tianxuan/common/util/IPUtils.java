@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * 用户获得用户ip的工具类
  */
-public class IPUtil {
+public class IPUtils {
 
     /**
      * 获取请求IP:

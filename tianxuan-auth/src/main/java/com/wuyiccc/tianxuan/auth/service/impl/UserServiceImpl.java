@@ -6,7 +6,7 @@ import com.wuyiccc.tianxuan.auth.service.UserService;
 import com.wuyiccc.tianxuan.common.enumeration.SexEnum;
 import com.wuyiccc.tianxuan.common.enumeration.ShowWhichNameEnum;
 import com.wuyiccc.tianxuan.common.enumeration.UserRoleEnum;
-import com.wuyiccc.tianxuan.common.util.DesensitizationUtil;
+import com.wuyiccc.tianxuan.common.util.DesensitizationUtils;
 import com.wuyiccc.tianxuan.common.util.LocalDateUtils;
 import com.wuyiccc.tianxuan.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +41,8 @@ public class UserServiceImpl implements UserService {
     public User createUser(String mobile) {
         User user = new User();
         user.setMobile(mobile);
-        user.setNickname("用户" + DesensitizationUtil.commonDisplay(mobile));
-        user.setRealName("用户" + DesensitizationUtil.commonDisplay(mobile));
+        user.setNickname("用户" + DesensitizationUtils.commonDisplay(mobile));
+        user.setRealName("用户" + DesensitizationUtils.commonDisplay(mobile));
         user.setShowWhichName(ShowWhichNameEnum.NICKNAME.code);
 
         user.setSex(SexEnum.SECRET.code);
