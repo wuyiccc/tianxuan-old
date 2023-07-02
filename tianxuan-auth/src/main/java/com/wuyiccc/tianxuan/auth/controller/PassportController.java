@@ -5,6 +5,7 @@ import com.wuyiccc.tianxuan.auth.service.UserService;
 import com.wuyiccc.tianxuan.common.base.BaseInfoProperties;
 import com.wuyiccc.tianxuan.common.result.CommonResult;
 import com.wuyiccc.tianxuan.common.result.ResponseStatusEnum;
+import com.wuyiccc.tianxuan.common.util.DingDingMsgUtils;
 import com.wuyiccc.tianxuan.common.util.IPUtils;
 import com.wuyiccc.tianxuan.common.util.JWTUtils;
 import com.wuyiccc.tianxuan.common.util.SmsUtils;
@@ -41,6 +42,9 @@ public class PassportController extends BaseInfoProperties {
     @Autowired
     private JWTUtils jwtUtils;
 
+    @Autowired
+    private DingDingMsgUtils dingDingMsgUtils;
+
     @GetMapping("/getSMSCode")
     public CommonResult<String> getSMSCode(String mobile, HttpServletRequest request) {
 
@@ -56,6 +60,7 @@ public class PassportController extends BaseInfoProperties {
         log.info("当前验证码为: {}", code);
         // TODO(wuyiccc): 发送短信验证码
 //            smsUtils.sendSMS(mobile, code);
+        dingDingMsgUtils.sendSMSCode(code);
         // 设置验证码过期时间为30min
         redisUtils.set(MOBILE_SMSCODE + ":" + mobile, code, 30 * 60);
         return CommonResult.ok("发送短信成功");

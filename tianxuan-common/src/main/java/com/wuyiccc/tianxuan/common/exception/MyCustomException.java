@@ -15,6 +15,11 @@ public class MyCustomException extends RuntimeException {
         this.responseStatusEnum = responseStatusEnum;
     }
 
+    public MyCustomException(String errorMsg) {
+        super(errorMsg);
+        this.responseStatusEnum = ResponseStatusEnum.SYSTEM_OPERATION_ERROR;
+    }
+
     public ResponseStatusEnum getResponseStatusEnum() {
         return responseStatusEnum;
     }
