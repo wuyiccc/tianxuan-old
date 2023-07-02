@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Component
 @Data
-@ConfigurationProperties(prefix = "exclude")
+@ConfigurationProperties(prefix = "tianxuan.exclude")
 public class TianxuanGatewayConfig {
 
     private List<String> urls;

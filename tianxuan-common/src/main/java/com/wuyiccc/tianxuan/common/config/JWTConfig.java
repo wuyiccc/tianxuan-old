@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Data
-@ConfigurationProperties("jwt.auth")
+@ConfigurationProperties("tianxuan.jwt.auth")
 public class JWTConfig {
 
     private String key;
