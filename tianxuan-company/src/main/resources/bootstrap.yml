@@ -4,7 +4,7 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: ${NACOS_HOST:ubuntu-physical}:${NACOS_PORT:8848}
+        server-addr: ${NACOS_HOST:192.168.43.105}:${NACOS_PORT:32228}
         namespace: ${NACOS_NAMESPACE:tianxuan-dev}
         file-extension: yml
         shared-configs:
