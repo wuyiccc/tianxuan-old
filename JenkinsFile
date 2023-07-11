@@ -1,0 +1,17 @@
+pipeline {
+  agent {
+    node {
+      label 'maven'
+    }
+
+  }
+  stages {
+    stage('拉取git代码') {
+      agent none
+      steps {
+        git(url: 'https://gitee.com/wuyiccc/tianxuan.git', credentialsId: 'gitee-account', branch: 'main', changelog: true, poll: false)
+      }
+    }
+
+  }
+}

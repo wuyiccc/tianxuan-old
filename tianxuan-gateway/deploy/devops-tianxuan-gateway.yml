@@ -20,7 +20,7 @@ spec:
       containers:
         # 定义容器名称
         - name: container-tianxuan-gateway
-          image: $DOCKERHUB_NAMESPACE/$SERVICE_NAME:$TAG_NAME
+          image: $REGISTRY/$DOCKERHUB_NAMESPACE/$SERVICE_NAME:$PROJECT_VERSION
           ports:
             - name: tcp-11031
               containerPort: 11031
