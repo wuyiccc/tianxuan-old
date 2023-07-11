@@ -1,12 +1,10 @@
 package com.wuyiccc.tianxuan.gateway.controller;
 
-import com.wuyiccc.tianxuan.common.util.SmsUtils;
+import com.wuyiccc.tianxuan.common.util.DingDingMsgUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
 
 /**
  * @author wuyiccc
@@ -16,11 +14,15 @@ import javax.annotation.Resource;
 @RequestMapping("/hello")
 public class HelloController {
 
+
+
     @Autowired
-    private SmsUtils smsUtils;
+    private DingDingMsgUtils dingDingMsgUtils;
     @GetMapping("/hello")
     public Object hello() throws Exception {
-        smsUtils.sendSMS("15972722916", "10000");
+//        smsUtils.sendSMS("15972722916", "10000");
+        dingDingMsgUtils.sendSMSCode("10000");
+
         return "hello gateway";
     }
 }
