@@ -21,7 +21,7 @@ public class HelloController {
     @GetMapping("/hello")
     public Object hello() throws Exception {
 //        smsUtils.sendSMS("15972722916", "10000");
-        dingDingMsgUtils.sendSMSCode("10000");
+//        dingDingMsgUtils.sendSMSCode("10000");
 
         return "hello gateway";
     }
