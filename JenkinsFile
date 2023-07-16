@@ -19,11 +19,7 @@ pipeline {
         container('maven') {
           sh 'mvn -Dmaven.test.skip=true -gs `pwd`/mvn-settings.xml clean package'
           sh 'cd  $SERVICE_NAME &&  docker build -f DockerFile -t $REGISTRY/$DOCKERHUB_NAMESPACE/$SERVICE_NAME:$PROJECT_VERSION .'
-          withCredentials([usernamePassword(credentialsId : 'docker-hub-account' ,passwordVariable : 'DOCKER_PASSWORD' ,usernameVariable : 'DOCKER_USERNAME' ,)]) {
-            sh 'echo "$DOCKER_PASSWORD" | docker login $REGISTRY -u "$DOCKER_USERNAME" --password-stdin'
-            sh 'docker push $REGISTRY/$DOCKERHUB_NAMESPACE/$SERVICE_NAME:$PROJECT_VERSION'
-          }
-
+          sh 'docker push $REGISTRY/$DOCKERHUB_NAMESPACE/$SERVICE_NAME:$PROJECT_VERSION'
         }
 
       }
@@ -57,7 +53,7 @@ pipeline {
     DOCKER_CREDENTIAL_ID = 'docker-hub-account'
     GITEE_CREDENTIAL_ID = 'gitee-account'
     KUBECONFIG_CREDENTIAL_ID = 'demo-kubeconfig'
-    REGISTRY = 'docker.io'
+    REGISTRY = '192.168.43.105:30906'
     DOCKERHUB_NAMESPACE = 'wuyiccc'
     GITEE_ACCOUNT = 'wuyiccc'
   }
