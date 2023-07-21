@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : ubuntu-physical-mysql8012
+ Source Server         : mysql8030.myk8s.wuyiccc.com
  Source Server Type    : MySQL
- Source Server Version : 80012 (8.0.12)
- Source Host           : ubuntu-physical:3306
- Source Schema         : tianxuan-dev
+ Source Server Version : 80030 (8.0.30)
+ Source Host           : mysql8030.myk8s.wuyiccc.com:30962
+ Source Schema         : tianxuan_dev
 
  Target Server Type    : MySQL
- Target Server Version : 80012 (8.0.12)
+ Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 02/07/2023 11:00:31
+ Date: 22/07/2023 07:55:27
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `admin` (
   `create_time` datetime NOT NULL,
   `updated_time` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='慕聘网运营管理系统的admin账户表，仅登录，不提供注册';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='慕聘网运营管理系统的admin账户表，仅登录，不提供注册';
 
 -- ----------------------------
 -- Records of admin
@@ -63,11 +63,11 @@ CREATE TABLE `article` (
   `publish_time` datetime DEFAULT NULL COMMENT '文章发布时间（也是预约发布的时间）',
   `publisher` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '发布者，字段冗余，避免多表关联',
   `publisher_face` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '发布者头像，字段冗余',
-  `status` int(11) NOT NULL COMMENT '文章状态：0：关闭，待发布，1：正常，可查阅，2：删除，无法查看',
+  `status` int NOT NULL COMMENT '文章状态：0：关闭，待发布，1：正常，可查阅，2：删除，无法查看',
   `create_time` datetime NOT NULL,
   `update_time` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='文章表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='文章表';
 
 -- ----------------------------
 -- Records of article
@@ -122,23 +122,23 @@ CREATE TABLE `chat_message` (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `sender_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '发送者的用户id',
   `receiver_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '接受者的用户id',
-  `receiver_type` int(11) NOT NULL COMMENT '消息接受者的类型，是HR还是求职者，目的为了让前端不同页面接受判断并且处理显示',
+  `receiver_type` int NOT NULL COMMENT '消息接受者的类型，是HR还是求职者，目的为了让前端不同页面接受判断并且处理显示',
   `msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '聊天内容',
-  `msg_type` int(11) NOT NULL COMMENT '消息类型，有文字类、图片类、视频类...等，详见枚举类',
+  `msg_type` int NOT NULL COMMENT '消息类型，有文字类、图片类、视频类...等，详见枚举类',
   `chat_time` datetime NOT NULL COMMENT '消息的聊天时间，既是发送者的发送时间、又是接受者的接受时间',
-  `show_msg_date_time_flag` int(11) NOT NULL COMMENT '标记存储数据库，用于历史展示。每超过1分钟，则显示聊天时间，前端可以控制时间长短',
+  `show_msg_date_time_flag` int NOT NULL COMMENT '标记存储数据库，用于历史展示。每超过1分钟，则显示聊天时间，前端可以控制时间长短',
   `video_path` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '视频地址',
-  `video_width` int(11) DEFAULT NULL COMMENT '视频宽度',
-  `video_height` int(11) DEFAULT NULL COMMENT '视频高度',
-  `video_times` int(11) DEFAULT NULL COMMENT '视频时间',
+  `video_width` int DEFAULT NULL COMMENT '视频宽度',
+  `video_height` int DEFAULT NULL COMMENT '视频高度',
+  `video_times` int DEFAULT NULL COMMENT '视频时间',
   `voice_path` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '语音地址',
-  `speak_voice_duration` int(11) DEFAULT NULL COMMENT '语音时长',
+  `speak_voice_duration` int DEFAULT NULL COMMENT '语音时长',
   `is_read` tinyint(1) DEFAULT NULL COMMENT '语音消息标记是否已读未读，true: 已读，false: 未读',
   `resume_user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '候选人用户id',
   `resume_name` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '简历名称（候选人名称）  \n简历名称与职位使用字段冗余，目的相当于快照，只记录当时信息',
   `resume_position` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '候选人职位  \n简历名称与职位使用字段冗余，目的相当于快照，只记录当时信息',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='聊天信息存储表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='聊天信息存储表';
 
 -- ----------------------------
 -- Records of chat_message
@@ -417,19 +417,19 @@ CREATE TABLE `company` (
   `regist_capital` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '注册资本',
   `regist_place` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '注册地址',
   `legal_representative` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '法人代表',
-  `review_status` int(11) NOT NULL DEFAULT '0' COMMENT '审核状态\n0：未发起审核认证(未进入审核流程)\n1：审核认证通过\n2：审核认证失败\n3：审核中（等待审核）',
+  `review_status` int NOT NULL DEFAULT '0' COMMENT '审核状态\n0：未发起审核认证(未进入审核流程)\n1：审核认证通过\n2：审核认证失败\n3：审核中（等待审核）',
   `review_replay` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '审核回复/审核意见',
   `auth_letter` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '入驻平台授权书',
   `commit_user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '提交申请人的用户id',
   `commit_user_mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '提交申请人的手机号',
   `commit_date` date DEFAULT NULL COMMENT '提交审核的日期',
-  `is_vip` int(11) NOT NULL COMMENT '0: 否  1: 是',
+  `is_vip` int NOT NULL COMMENT '0: 否  1: 是',
   `vip_expire_date` date DEFAULT NULL COMMENT 'Vip过期日期，判断企业是否vip，需要is_vip=1并且过期日期>=当前日期',
   `created_time` datetime NOT NULL,
   `updated_time` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `company_name` (`company_name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='企业表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='企业表';
 
 -- ----------------------------
 -- Records of company
@@ -461,7 +461,7 @@ CREATE TABLE `company_photo` (
   `company_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '企业id',
   `photos` varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`company_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='企业相册表，本表只存企业上传的图片';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='企业相册表，本表只存企业上传的图片';
 
 -- ----------------------------
 -- Records of company_photo
@@ -481,12 +481,12 @@ CREATE TABLE `data_dictionary` (
   `type_name` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '数据字典的类别名称，例如：福利待遇（同一类型item所对应的name都是一致的）',
   `item_key` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字典项，数据字典类别下的所有key，每个key对应一个value，可以根据类型key和字典key同时找到具体某一项字典value，例如：travel-旅游',
   `item_value` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '每个单个的数据字典的值，唯一key所对应的值value，例如：旅游',
-  `sort` int(11) DEFAULT NULL COMMENT '排序',
+  `sort` int DEFAULT NULL COMMENT '排序',
   `icon` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '对应的字体图标，可以为空',
   `enable` tinyint(1) NOT NULL COMMENT '是否开启，1：启用，0：停用',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `item_value` (`item_value`,`item_key`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='数据字典表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='数据字典表';
 
 -- ----------------------------
 -- Records of data_dictionary
@@ -574,12 +574,12 @@ DROP TABLE IF EXISTS `industry`;
 CREATE TABLE `industry` (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '行业名称',
-  `sort` int(11) NOT NULL COMMENT '排序',
+  `sort` int NOT NULL COMMENT '排序',
   `father_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '为0则当前为第一级分类，否则当前为fatherId所对应行业的子分类',
   `is_leaf` tinyint(1) NOT NULL COMMENT '用于提供给前端tree显示标记是否展示下拉箭头，一级分类与二级分类为true，三级分类也就是最后一级分类是false',
-  `level` int(11) NOT NULL COMMENT '分类层级，用于标记',
+  `level` int NOT NULL COMMENT '分类层级，用于标记',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='行业表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='行业表';
 
 -- ----------------------------
 -- Records of industry
@@ -831,12 +831,12 @@ CREATE TABLE `interview` (
   `interview_time` datetime NOT NULL COMMENT '面试时间',
   `interview_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '面试地点',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注信息',
-  `status` int(11) NOT NULL COMMENT '面试邀约的状态\n1：等待候选人接受面试\n2：候选人已接受面试\n3：候选人已拒绝面试\n4：HR已取消面试\n5：面试通过',
+  `status` int NOT NULL COMMENT '面试邀约的状态\n1：等待候选人接受面试\n2：候选人已接受面试\n3：候选人已拒绝面试\n4：HR已取消面试\n5：面试通过',
   `cand_name` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '候选人名称（候选人名称）  \n简历名称与职位使用字段冗余，目的相当于快照，只记录当时信息',
   `cand_face` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '候选人头像  \n简历名称与职位使用字段冗余，目的相当于快照，只记录当时信息',
   `cand_position` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '候选人职位  \n简历名称与职位使用字段冗余，目的相当于快照，只记录当时信息',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='面试邀约表\n本表为次表，可做冗余，可以用mongo或者es替代';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='面试邀约表\n本表为次表，可做冗余，可以用mongo或者es替代';
 
 -- ----------------------------
 -- Records of interview
@@ -893,19 +893,19 @@ CREATE TABLE `job` (
   `job_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '职位类别',
   `exp_years` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '工作经验年限',
   `edu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '技能标签',
-  `begin_salary` int(11) NOT NULL COMMENT '薪资要求区间-起始',
-  `end_salary` int(11) NOT NULL COMMENT '薪资要求区间-结束',
-  `monthly_salary` int(11) NOT NULL COMMENT '总共几个月工资',
+  `begin_salary` int NOT NULL COMMENT '薪资要求区间-起始',
+  `end_salary` int NOT NULL COMMENT '薪资要求区间-结束',
+  `monthly_salary` int NOT NULL COMMENT '总共几个月工资',
   `job_desc` varchar(4000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '职位描述',
   `tags` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '职位标签',
   `city` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '工作城市',
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '工作地点',
-  `status` int(11) NOT NULL COMMENT '1：招聘中，open\n2：已关闭，close\n3：违规删除，delete',
+  `status` int NOT NULL COMMENT '1：招聘中，open\n2：已关闭，close\n3：违规删除，delete',
   `violate_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '违规原因',
   `create_time` datetime NOT NULL,
   `updated_time` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='HR发布的职位表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='HR发布的职位表';
 
 -- ----------------------------
 -- Records of job
@@ -947,12 +947,12 @@ DROP TABLE IF EXISTS `job_type`;
 CREATE TABLE `job_type` (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '行业名称',
-  `sort` int(11) NOT NULL COMMENT '排序',
+  `sort` int NOT NULL COMMENT '排序',
   `father_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '为0则当前为第一级分类，否则当前为fatherId所对应行业的子分类',
   `is_leaf` tinyint(1) NOT NULL COMMENT '用于提供给前端tree显示标记是否展示下拉箭头，一级分类与二级分类为true，三级分类也就是最后一级分类是false',
-  `level` int(11) NOT NULL COMMENT '分类层级，用于标记',
+  `level` int NOT NULL COMMENT '分类层级，用于标记',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='职位类别';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='职位类别';
 
 -- ----------------------------
 -- Records of job_type
@@ -1634,16 +1634,16 @@ CREATE TABLE `order` (
   `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户主键id',
   `company_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '购买用户所在的企业主键id',
   `item_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品名称',
-  `total_amount` int(11) NOT NULL COMMENT '订单总价',
-  `real_pay_amount` int(11) NOT NULL COMMENT '实际支付总价格',
-  `post_amount` int(11) DEFAULT NULL COMMENT '邮费;默认可以为零，代表包邮',
-  `pay_method` int(11) NOT NULL COMMENT '支付方式',
-  `status` int(11) NOT NULL COMMENT '订单状态',
+  `total_amount` int NOT NULL COMMENT '订单总价',
+  `real_pay_amount` int NOT NULL COMMENT '实际支付总价格',
+  `post_amount` int DEFAULT NULL COMMENT '邮费;默认可以为零，代表包邮',
+  `pay_method` int NOT NULL COMMENT '支付方式',
+  `status` int NOT NULL COMMENT '订单状态',
   `extend` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '扩展字段',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='订单表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='订单表';
 
 -- ----------------------------
 -- Records of order
@@ -1705,11 +1705,11 @@ CREATE TABLE `report_job` (
   `report_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '举报原因',
   `job_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '被举报的职位名称',
   `company_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '被举报的公司名称',
-  `deal_status` int(11) NOT NULL COMMENT '处理状态：0：待处理，1：已处理，2：忽略、无需处理',
+  `deal_status` int NOT NULL COMMENT '处理状态：0：待处理，1：已处理，2：忽略、无需处理',
   `created_time` datetime NOT NULL,
   `updated_time` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='举报职位';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='举报职位';
 
 -- ----------------------------
 -- Records of report_job
@@ -1734,7 +1734,7 @@ CREATE TABLE `resume` (
   `updated_time` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `user_id` (`user_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='简历表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='简历表';
 
 -- ----------------------------
 -- Records of resume
@@ -1765,7 +1765,7 @@ CREATE TABLE `resume_education` (
   `create_time` datetime NOT NULL,
   `updated_time` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='教育经历表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='教育经历表';
 
 -- ----------------------------
 -- Records of resume_education
@@ -1791,12 +1791,12 @@ CREATE TABLE `resume_expect` (
   `job_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '期望职位',
   `city` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '工作所在城市',
   `industry` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '工作对应所处行业',
-  `begin_salary` int(11) NOT NULL COMMENT '薪资要求区间-起始',
-  `end_salary` int(11) NOT NULL COMMENT '薪资要求区间-结束',
+  `begin_salary` int NOT NULL COMMENT '薪资要求区间-起始',
+  `end_salary` int NOT NULL COMMENT '薪资要求区间-结束',
   `create_time` datetime NOT NULL,
   `updated_time` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='求职期望表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='求职期望表';
 
 -- ----------------------------
 -- Records of resume_expect
@@ -1828,7 +1828,7 @@ CREATE TABLE `resume_project_exp` (
   `create_time` datetime NOT NULL,
   `updated_time` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='项目经验表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='项目经验表';
 
 -- ----------------------------
 -- Records of resume_project_exp
@@ -1860,7 +1860,7 @@ CREATE TABLE `resume_work_exp` (
   `create_time` datetime NOT NULL,
   `updated_time` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='工作经验表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='工作经验表';
 
 -- ----------------------------
 -- Records of resume_work_exp
@@ -1882,10 +1882,10 @@ DROP TABLE IF EXISTS `stu`;
 CREATE TABLE `stu` (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `age` int(11) NOT NULL,
+  `age` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `u_idx_name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `u_idx_name` (`name`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of stu
@@ -1901,10 +1901,10 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_param`;
 CREATE TABLE `sys_param` (
-  `id` int(11) NOT NULL,
-  `max_resume_refresh_counts` int(11) NOT NULL COMMENT '每日最大简历被刷新的次数',
+  `id` int NOT NULL,
+  `max_resume_refresh_counts` int NOT NULL COMMENT '每日最大简历被刷新的次数',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='系统参数配置表，本表仅有一条记录';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='系统参数配置表，本表仅有一条记录';
 
 -- ----------------------------
 -- Records of sys_param
@@ -1922,8 +1922,8 @@ CREATE TABLE `user` (
   `mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '手机号',
   `nickname` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '昵称',
   `real_name` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '真实姓名',
-  `show_which_name` int(11) NOT NULL DEFAULT '2' COMMENT '对外展示名，1：真实姓名，2：昵称',
-  `sex` int(11) NOT NULL COMMENT '性别，1:男 0:女 2:保密',
+  `show_which_name` int NOT NULL DEFAULT '2' COMMENT '对外展示名，1：真实姓名，2：昵称',
+  `sex` int NOT NULL COMMENT '性别，1:男 0:女 2:保密',
   `face` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户头像',
   `email` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '邮箱',
   `birthday` date DEFAULT NULL COMMENT '生日',
@@ -1934,7 +1934,7 @@ CREATE TABLE `user` (
   `description` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '介绍',
   `start_work_date` date DEFAULT NULL COMMENT '我参加工作的时间',
   `position` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '我当前职位/职务',
-  `role` int(11) NOT NULL COMMENT '身份角色，1: 求职者，2: 求职者可以切换为HR进行招聘，同时拥有两个身份',
+  `role` int NOT NULL COMMENT '身份角色，1: 求职者，2: 求职者可以切换为HR进行招聘，同时拥有两个身份',
   `hr_in_which_company_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '成为HR后，认证的（绑定的）公司主键id',
   `hr_signature` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '我的一句话签名',
   `hr_tags` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '我的个性化标签',
@@ -1942,7 +1942,7 @@ CREATE TABLE `user` (
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `mobile` (`mobile`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='用户表';
 
 -- ----------------------------
 -- Records of user
