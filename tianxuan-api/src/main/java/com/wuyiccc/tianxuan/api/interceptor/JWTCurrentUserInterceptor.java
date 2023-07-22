@@ -6,9 +6,7 @@ import com.wuyiccc.tianxuan.pojo.Admin;
 import com.wuyiccc.tianxuan.pojo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.annotations.SelectKey;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,10 +31,14 @@ public class JWTCurrentUserInterceptor extends BaseInfoProperties implements Han
         String saasUserJson = request.getHeader(SAAS_USER_JSON);
         String adminUserJson = request.getHeader(ADMIN_USER_JSON);
 
-        if (StringUtils.isNotBlank(appUserJson)
-                || StringUtils.isNotBlank(saasUserJson)) {
+        if (StringUtils.isNotBlank(appUserJson)) {
             User appUser = new Gson().fromJson(appUserJson, User.class);
             currentUser.set(appUser);
+        }
+
+        if (StringUtils.isNotBlank(saasUserJson)) {
+            User saasUser = new Gson().fromJson(saasUserJson, User.class);
+            currentUser.set(saasUser);
         }
 
         if (StringUtils.isNotBlank(adminUserJson)) {

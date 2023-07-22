@@ -9,12 +9,11 @@ import com.wuyiccc.tianxuan.common.result.CommonResult;
 import com.wuyiccc.tianxuan.common.result.ResponseStatusEnum;
 import com.wuyiccc.tianxuan.common.util.JWTUtils;
 import com.wuyiccc.tianxuan.pojo.User;
+import com.wuyiccc.tianxuan.pojo.vo.SaasUserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -137,9 +136,50 @@ public class SaasPassportController extends BaseInfoProperties {
                 }
 
                 // 存入用户信息到redis中, 方便前端用户获取
-                redisUtils.set(REDIS_SAAS_USER_INFO + ":tmp:" + preToken, new Gson().toJson(hrUser), 5 * 60);
+                redisUtils.set(REDIS_SAAS_USER_INFO + ":temp:" + preToken, new Gson().toJson(hrUser), 5 * 60);
             }
         }
+        return CommonResult.ok();
+    }
+
+    /**
+     * 页面登录跳转
+     */
+    @PostMapping("/checkLogin")
+    public CommonResult<String> checkLogin(String preToken) {
+
+        if (StringUtils.isBlank(preToken)) {
+            throw new CustomException(ResponseStatusEnum.FAILED);
+        }
+
+        String userJson = redisUtils.get(REDIS_SAAS_USER_INFO + ":temp:" + preToken);
+        if (StringUtils.isBlank(userJson)) {
+            throw new CustomException(ResponseStatusEnum.USER_NOT_EXIST_ERROR);
+        }
+
+        String saasUserToken = jwtUtils.createJWTWithPrefix(userJson, TOKEN_SAAS_PREFIX);
+
+        // 存入用户信息, 长期有效
+        redisUtils.set(REDIS_SAAS_USER_INFO + ":" + saasUserToken, userJson);
+
+        return CommonResult.ok(saasUserToken);
+    }
+
+    @GetMapping("/info")
+    public CommonResult<SaasUserVO> info() {
+
+        User user = JWTCurrentUserInterceptor.currentUser.get();
+
+        SaasUserVO vo = SaasUserVO.builder()
+                .username(user.getRealName())
+                .name(user.getNickname())
+                .face(user.getFace())
+                .build();
+        return CommonResult.ok(vo);
+    }
+
+    @PostMapping("/logout")
+    public CommonResult<String> logout(@RequestParam String userId) {
         return CommonResult.ok();
     }
 
