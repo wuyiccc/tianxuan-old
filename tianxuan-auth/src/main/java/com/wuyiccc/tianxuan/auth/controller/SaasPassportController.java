@@ -2,11 +2,17 @@ package com.wuyiccc.tianxuan.auth.controller;
 
 import com.wuyiccc.tianxuan.common.base.BaseInfoProperties;
 import com.wuyiccc.tianxuan.common.result.CommonResult;
+import com.wuyiccc.tianxuan.common.result.ResponseStatusEnum;
+import com.wuyiccc.tianxuan.common.util.JWTUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -18,6 +24,13 @@ import java.util.UUID;
 @Slf4j
 public class SaasPassportController extends BaseInfoProperties {
 
+
+    @Autowired
+    private JWTUtils jwtUtils;
+
+    /**
+     * 获得二维码token令牌
+     */
     @PostMapping("/getQRToken")
     public CommonResult<String> getQRToken() {
 
@@ -30,6 +43,43 @@ public class SaasPassportController extends BaseInfoProperties {
 
         // 返回给前端, 让前端下一次请求的时候需要带上qrtoken
         return CommonResult.ok(qrToken);
+    }
+
+
+    @PostMapping("/scanCode")
+    public CommonResult<String> scanCode(String qrToken, HttpServletRequest request) {
+
+        if (StringUtils.isBlank(qrToken)) {
+            return CommonResult.errorCustom(ResponseStatusEnum.FAILED);
+        }
+
+        String redisQRToken = redisUtils.get(SAAS_PLATFORM_LOGIN_TOKEN + ":" + qrToken);
+        if (Objects.equals(redisQRToken, qrToken)) {
+            return CommonResult.errorCustom(ResponseStatusEnum.FAILED);
+        }
+
+        // TODO(wuyiccc): 后续变更为headerUserToken, uniapp对应接口一起变更
+        String headerUserId = request.getHeader("appUserId");
+        String headerUserToken = request.getHeader("appUserToken");
+
+        if (StringUtils.isBlank(headerUserToken) || StringUtils.isBlank(headerUserId)) {
+            return CommonResult.errorCustom(ResponseStatusEnum.HR_TICKET_INVALID);
+        }
+
+        String userJson = jwtUtils.checkJWT(headerUserToken.split("@")[1]);
+        if (StringUtils.isBlank(userJson)) {
+            return CommonResult.errorCustom(ResponseStatusEnum.HR_TICKET_INVALID);
+        }
+
+        // 生成预登录token令牌
+        String preToken = UUID.randomUUID().toString();
+        redisUtils.set(SAAS_PLATFORM_LOGIN_TOKEN + ":" + qrToken, preToken, 5 * 60);
+
+        // 1代表已经被扫描, 标记qrtoken失效
+        redisUtils.set(SAAS_PLATFORM_LOGIN_TOKEN_READ + ":" + qrToken, "1," + preToken, 5 * 60);
+
+        // 返回给手机端, app下次请求携带preToken
+        return CommonResult.ok(preToken);
     }
 
 

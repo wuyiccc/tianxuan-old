@@ -4,10 +4,8 @@ import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiRobotSendRequest;
 import com.dingtalk.api.response.OapiRobotSendResponse;
-import com.taobao.api.ApiException;
 import com.wuyiccc.tianxuan.common.config.DingDingConfig;
 import com.wuyiccc.tianxuan.common.exception.MyCustomException;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +14,6 @@ import org.springframework.stereotype.Component;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.net.URLEncoder;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 /**
  * @author wuyiccc
@@ -77,7 +73,7 @@ public class DingDingMsgUtils {
 //                "> ###### 10点20分发布 [天气](http://www.thinkpage.cn/) \n");
 //        request.setMarkdown(markdown);
             OapiRobotSendResponse response = client.execute(request);
-            log.info("钉钉消息通知发送返回信息: {}", response);
+            log.info("钉钉消息通知发送返回信息: {}", response.getMessage());
 
         } catch (Exception e) {
 

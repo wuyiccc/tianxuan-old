@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * @author wuyiccc
@@ -45,7 +44,7 @@ public class PassportController extends BaseInfoProperties {
     @Autowired
     private DingDingMsgUtils dingDingMsgUtils;
 
-    @GetMapping("/getSMSCode")
+    @PostMapping("/getSMSCode")
     public CommonResult<String> getSMSCode(String mobile, HttpServletRequest request) {
 
         if (StringUtils.isBlank(mobile)) {
@@ -57,7 +56,7 @@ public class PassportController extends BaseInfoProperties {
         redisUtils.setnx60s(MOBILE_SMSCODE + ":" + requestIp, mobile);
 
         String code = (int) ((Math.random() * 9 + 1) * 100000) + "";
-        log.info("当前验证码为: {}", code);
+        log.info("手机号: {}, 当前验证码为: {}", mobile, code);
         // TODO(wuyiccc): 发送短信验证码
 //            smsUtils.sendSMS(mobile, code);
         dingDingMsgUtils.sendSMSCode(code);
