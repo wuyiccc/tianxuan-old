@@ -5,7 +5,7 @@ import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiRobotSendRequest;
 import com.dingtalk.api.response.OapiRobotSendResponse;
 import com.wuyiccc.tianxuan.common.config.DingDingConfig;
-import com.wuyiccc.tianxuan.common.exception.MyCustomException;
+import com.wuyiccc.tianxuan.common.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +78,7 @@ public class DingDingMsgUtils {
         } catch (Exception e) {
 
             log.error("钉钉消息通知发送失败: {}", e.getMessage());
-            throw new MyCustomException(e.getMessage());
+            throw new CustomException(e.getMessage());
         }
 
     }

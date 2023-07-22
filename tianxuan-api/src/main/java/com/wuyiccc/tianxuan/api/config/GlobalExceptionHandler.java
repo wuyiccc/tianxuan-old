@@ -1,6 +1,6 @@
 package com.wuyiccc.tianxuan.api.config;
 
-import com.wuyiccc.tianxuan.common.exception.MyCustomException;
+import com.wuyiccc.tianxuan.common.exception.CustomException;
 import com.wuyiccc.tianxuan.common.result.CommonResult;
 import com.wuyiccc.tianxuan.common.result.ResponseStatusEnum;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -28,8 +28,8 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
 
-    @ExceptionHandler(MyCustomException.class)
-    public CommonResult<String> returnMyCustomException(MyCustomException e) {
+    @ExceptionHandler(CustomException.class)
+    public CommonResult<String> returnMyCustomException(CustomException e) {
         return CommonResult.exception(e.getResponseStatusEnum());
     }
 

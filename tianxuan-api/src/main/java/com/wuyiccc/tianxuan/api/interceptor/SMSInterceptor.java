@@ -1,7 +1,7 @@
 package com.wuyiccc.tianxuan.api.interceptor;
 
 import com.wuyiccc.tianxuan.common.base.BaseInfoProperties;
-import com.wuyiccc.tianxuan.common.exception.MyCustomException;
+import com.wuyiccc.tianxuan.common.exception.CustomException;
 import com.wuyiccc.tianxuan.common.result.ResponseStatusEnum;
 import com.wuyiccc.tianxuan.common.util.IPUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class SMSInterceptor extends BaseInfoProperties implements HandlerInterce
 
         boolean ipExist = redisUtils.keyIsExist(MOBILE_SMSCODE + ":" + requestIp);
         if (ipExist) {
-            throw new MyCustomException(ResponseStatusEnum.SMS_NEED_WAIT_ERROR);
+            throw new CustomException(ResponseStatusEnum.SMS_NEED_WAIT_ERROR);
         }
 
         // true: 放行

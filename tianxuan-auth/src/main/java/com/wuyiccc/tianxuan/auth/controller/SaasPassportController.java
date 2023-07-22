@@ -1,6 +1,7 @@
 package com.wuyiccc.tianxuan.auth.controller;
 
 import com.wuyiccc.tianxuan.common.base.BaseInfoProperties;
+import com.wuyiccc.tianxuan.common.exception.CustomException;
 import com.wuyiccc.tianxuan.common.result.CommonResult;
 import com.wuyiccc.tianxuan.common.result.ResponseStatusEnum;
 import com.wuyiccc.tianxuan.common.util.JWTUtils;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -50,11 +53,11 @@ public class SaasPassportController extends BaseInfoProperties {
     public CommonResult<String> scanCode(String qrToken, HttpServletRequest request) {
 
         if (StringUtils.isBlank(qrToken)) {
-            return CommonResult.errorCustom(ResponseStatusEnum.FAILED);
+            throw new CustomException(ResponseStatusEnum.FAILED);
         }
 
         String redisQRToken = redisUtils.get(SAAS_PLATFORM_LOGIN_TOKEN + ":" + qrToken);
-        if (Objects.equals(redisQRToken, qrToken)) {
+        if (!Objects.equals(redisQRToken, qrToken)) {
             return CommonResult.errorCustom(ResponseStatusEnum.FAILED);
         }
 
@@ -81,6 +84,29 @@ public class SaasPassportController extends BaseInfoProperties {
         // 返回给手机端, app下次请求携带preToken
         return CommonResult.ok(preToken);
     }
+
+    /**
+     * saas网页端每隔一段时间(3s)定时查询qrToken是否被读取
+     */
+    @PostMapping("/codeHasBeenRead")
+    public CommonResult<List<String>> codeHasBeenRead(String qrToken) {
+
+        String readStr = redisUtils.get(SAAS_PLATFORM_LOGIN_TOKEN_READ + ":" + qrToken);
+
+        if (StringUtils.isBlank(readStr)) {
+            log.error("readStr is null");
+            throw new CustomException(ResponseStatusEnum.FAILED);
+        }
+
+        String[] readArr = readStr.split(",");
+        List<String> list = new ArrayList<>();
+        if (readArr.length >= 2) {
+            list.add(readArr[0]);
+            list.add(readArr[1]);
+        }
+        return CommonResult.ok(list);
+    }
+
 
 
 }
