@@ -1,6 +1,7 @@
 package com.wuyiccc.tianxuan.auth.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wuyiccc.tianxuan.auth.mapper.UserMapper;
 import com.wuyiccc.tianxuan.auth.service.UserService;
 import com.wuyiccc.tianxuan.common.enumeration.SexEnum;
@@ -21,7 +22,7 @@ import java.time.LocalDateTime;
  * @date 2023/6/27 22:43
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Autowired
     private UserMapper userMapper;

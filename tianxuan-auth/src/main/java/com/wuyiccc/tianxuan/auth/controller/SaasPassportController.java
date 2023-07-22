@@ -1,10 +1,14 @@
 package com.wuyiccc.tianxuan.auth.controller;
 
+import com.google.gson.Gson;
+import com.wuyiccc.tianxuan.api.interceptor.JWTCurrentUserInterceptor;
+import com.wuyiccc.tianxuan.auth.service.UserService;
 import com.wuyiccc.tianxuan.common.base.BaseInfoProperties;
 import com.wuyiccc.tianxuan.common.exception.CustomException;
 import com.wuyiccc.tianxuan.common.result.CommonResult;
 import com.wuyiccc.tianxuan.common.result.ResponseStatusEnum;
 import com.wuyiccc.tianxuan.common.util.JWTUtils;
+import com.wuyiccc.tianxuan.pojo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +34,10 @@ public class SaasPassportController extends BaseInfoProperties {
 
     @Autowired
     private JWTUtils jwtUtils;
+
+    @Autowired
+    private UserService userService;
+
 
     /**
      * 获得二维码token令牌
@@ -62,17 +70,18 @@ public class SaasPassportController extends BaseInfoProperties {
         }
 
         // TODO(wuyiccc): 后续变更为headerUserToken, uniapp对应接口一起变更
-        String headerUserId = request.getHeader("appUserId");
-        String headerUserToken = request.getHeader("appUserToken");
+//        String headerUserId = request.getHeader("appUserId");
+//        String headerUserToken = request.getHeader("appUserToken");
 
-        if (StringUtils.isBlank(headerUserToken) || StringUtils.isBlank(headerUserId)) {
-            return CommonResult.errorCustom(ResponseStatusEnum.HR_TICKET_INVALID);
-        }
 
-        String userJson = jwtUtils.checkJWT(headerUserToken.split("@")[1]);
-        if (StringUtils.isBlank(userJson)) {
-            return CommonResult.errorCustom(ResponseStatusEnum.HR_TICKET_INVALID);
-        }
+//        if (StringUtils.isBlank(headerUserToken) || StringUtils.isBlank(headerUserId)) {
+//            return CommonResult.errorCustom(ResponseStatusEnum.HR_TICKET_INVALID);
+//        }
+
+//        String userJson = jwtUtils.checkJWT(headerUserToken.split("@")[1]);
+//        if (StringUtils.isBlank(userJson)) {
+//            return CommonResult.errorCustom(ResponseStatusEnum.HR_TICKET_INVALID);
+//        }
 
         // 生成预登录token令牌
         String preToken = UUID.randomUUID().toString();
@@ -107,6 +116,32 @@ public class SaasPassportController extends BaseInfoProperties {
         return CommonResult.ok(list);
     }
 
+    /**
+     * 手机端点击确认登录
+     */
+    @PostMapping("/goQRLogin")
+    private CommonResult<String> goQRLogin(String qrToken
+            , String preToken) {
+
+        User tokenUserInfo = JWTCurrentUserInterceptor.currentUser.get();
+        String userId = tokenUserInfo.getId();
+
+        String preTokenRedisArr = redisUtils.get(SAAS_PLATFORM_LOGIN_TOKEN_READ + ":" + qrToken);
+
+        if (StringUtils.isNotBlank(preTokenRedisArr)) {
+            String preTokenRedis = preTokenRedisArr.split(",")[1];
+            if (preTokenRedis.equalsIgnoreCase(preToken)) {
+                User hrUser = userService.getById(userId);
+                if (Objects.isNull(hrUser)) {
+                    throw new CustomException(ResponseStatusEnum.USER_NOT_EXIST_ERROR);
+                }
+
+                // 存入用户信息到redis中, 方便前端用户获取
+                redisUtils.set(REDIS_SAAS_USER_INFO + ":tmp:" + preToken, new Gson().toJson(hrUser), 5 * 60);
+            }
+        }
+        return CommonResult.ok();
+    }
 
 
 }
